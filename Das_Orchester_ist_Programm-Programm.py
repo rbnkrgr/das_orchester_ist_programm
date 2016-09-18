@@ -22,12 +22,8 @@
 #  MA 02110-1301, USA.
  
 from __future__ import division
-from scipy import misc, ndimage
-from mpl_toolkits.mplot3d import Axes3D
-import math as m
-import random
 import time
-import matplotlib.pyplot as plt
+import random
 import numpy as np
 import cv2
 import sys
@@ -39,27 +35,6 @@ import threading
 import os
 
 #=====Object from Stefan=====#
-
-def test1():
-	fs = fluidsynth.Synth() 
-	fs.start(driver="alsa")
-
-	sfid = fs.sfload("FluidR3_GM.sf2") 
-	fs.program_select(0, sfid, 0, 0)
-
-	fs.noteon(0, 60, 50) 
-	fs.noteon(0, 67, 30) 
-	fs.noteon(0, 76, 30)
-
-	time.sleep(1.0)
-
-	fs.noteoff(0, 60) 
-	fs.noteoff(0, 67) 
-	fs.noteoff(0, 76)
-
-	time.sleep(1.0)
-
-	fs.delete() 
 
 class Player(object):
 	
@@ -491,8 +466,7 @@ def menu_visual(cap):
 		cv2.circle(frame, (0,480), cthresh, (0,255,255), -1)	
 		cv2.putText(frame, "INFO", (200,80), 2, 1, (255,255,255), 0)
 		cv2.putText(frame, "Kalibrieren [K]", (200,130), 2, 1, (255,255,255), 0)
-		cv2.putText(frame, "Pause/Start [P]", (200,170  ), 2, 1, (255,255,255), 0)
-		cv2.putText(frame, "Beenden [Leer]", (200,210  ), 2, 1, (255,255,255), 0)
+		cv2.putText(frame, "Beenden [Leer]", (200,170  ), 2, 1, (255,255,255), 0)
 		#===Ende===#
 		
 		cv2.imshow('frame', frame)
@@ -515,8 +489,6 @@ def waehle_stueck(taktart, lager_verzeichnis):
 		print "Ungueltige Taktart"
 	auswahl = random.choice(stuecke)
 	return  lager_verzeichnis +  "/" + art + "/" + auswahl
-
-
 
 #=======gestures=======#
 
@@ -548,8 +520,6 @@ cthresh = 95
 ref = (320,240)
 old = 0	
 new = 5
-pp = 0
-last_state = False
 
 #=======lists=======#
 
@@ -610,15 +580,15 @@ while True:
 		except:
 			print "Fehler. Bitte neu starten."
 		
-
 	if cv2.waitKey(1) & 0xFF == ord('k'):
 		get_values(cap)
 
 	if cv2.waitKey(1) & 0xFF == ord(' '):
-		if fnr > 100:
+		if fnr > 200:
 			p.stopit()
 		print "herunterfahren"
 		break	
 
 cap.release()
 cv2.destroyAllWindows()
+
