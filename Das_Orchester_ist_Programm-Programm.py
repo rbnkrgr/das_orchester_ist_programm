@@ -311,29 +311,6 @@ def in_circle(pos):
 			if ret == 5:
 				return "menu"
 			return ret
-		
-def detect_gesture(zu_untersuchen, figur): #diese Funktion versucht Figuren im Dirigat zu erkennen. Dafuer bekommt sie die Figurvektoren in richtiger Reihenfolge, sowie die Liste mit den dirigierten Vektoren uebergeben
-	figurlaenge = len(figur)
-	
-	zu_untersuchen_kurz = [] #Diese Liste soll die letzten dirigierten Vektoren enthalten, die wichtig sind
-	for i in range(figurlaenge,0,-1):
-		zu_untersuchen_kurz.append(zu_untersuchen[-i]) #letzten Eintraege werden ermittelt
-	zu_untersuchen_kurz = np.array(zu_untersuchen_kurz) #zur weiteren Verarbeitung Konvertierung in Array
-		
-	figurensammlung = [] #verschiedene Kombinationen werden angelegt, schwierig sich das ohne zeichnung vorzustellen. Bsp.: aus [1,2,3] wird [[1,2,3],[2,3,1],[3,2,1]]
-	tmp = figur
-	for i in range(figurlaenge):
-		tmp.append(tmp[0])
-		del(tmp[0])
-		anhaengen = deepcopy(tmp)
-		figurensammlung.append(anhaengen)
-	figurensammlung = np.array(figurensammlung) #zur weiteren Verarbeitung Konvertierung in Array
-
-	for i in range(figurlaenge): #Der Vergleich findet statt
-		if np.array_equiv(figurensammlung[i],zu_untersuchen_kurz): #elementweises Vergleichen von letztem Dirigat und verschiedenen Figur-Kombinationen
-			return True #falls Figur gefunden
-	
-	return False #falls Figur nicht gefunden
 
 def beat_number(vec,figure):
 	a,b = vec
